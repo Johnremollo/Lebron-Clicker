@@ -12,7 +12,7 @@ let B3 = document.getElementById("C3")
 var Cmone = 0
 var Cdmg = 1
 var time = 0
-var cti = cti
+var cti = 0
 var ctii = 0
 var ctif = 0
 var fun = 0
@@ -21,12 +21,52 @@ var crit = 1.04
 var luck = 1.0
 var cd = 1.2
 
+/*Storage*/
+
+const x = document.getElementById("result");
+
+try {
+  if (typeof window.localStorage === 'object') {
+    console.log("Your browser supports Web Storage!");
+
+  } else {
+    window.alert("Sorry, Web Storage not supported.")
+  }
+} catch (e) {
+  window.alert("Web Storage is disabled or not supported.")
+}
+
+
+function sit() {
+    localStorage.setItem("Mon", Cmone)
+    localStorage.setItem("Dgm", Cdmg)
+
+}
+
+function git() {
+    Cdmg = Number(localStorage.getItem("Dgm"))
+    Cmone = Number(localStorage.getItem("Mon"))
+}
+
+window.addEventListener("load", git)
+window.addEventListener("beforeunload", sit)
+
 /*Debug*/
 setInterval(function() {
     cti += 0.001
 }, 1);
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function rd() {
+    B1.style.setProperty = {
+            color: red
+        }
+    await wait(1)
+    B1.style.setProperty = {
+            color: unset
+        }
+        return true;
 }
 
 LP.onclick = async function() 
@@ -39,7 +79,8 @@ LP.onclick = async function()
             Cmone += Math.round(Cdmg * cd);
         }
         fun = 0
-
+        
+        await rd
 
         
         /*
